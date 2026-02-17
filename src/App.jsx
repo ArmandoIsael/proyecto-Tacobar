@@ -25,22 +25,20 @@ function App() {
 
     }
 
+    const cerrarSesion = () => {
+        setIsLoggedIn(false);
+        setUser('');
+        setPassword('');
+        setPaginaActual('menu');
+    }
+
     if (isLoggedIn) {
         return (
-            /*
-            <div>
-                <h1>Hola</h1>
-                <p>Test</p>
-                <button onClick={() => setIsLoggedIn(false)}>Cerrar Sesion</button>
-
-                <Menu />
-            </div>
-            */
 
             <div className="app-container">
                 <Navbar
                     cambiarPagina={setPaginaActual}
-                    //cerrarSesion={cerrarSesion}
+                    cerrarSesion={cerrarSesion}
                 />
 
                 <div className="contenido-principal">
