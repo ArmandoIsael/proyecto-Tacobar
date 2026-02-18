@@ -3,6 +3,7 @@ import { useState } from 'react'
 //import viteLogo from '/vite.svg'
 //import './App.css'
 import './Menu.css'
+import './Login.css'
 import Menu from "./components/Menu.jsx"
 import Navbar from "./components/Navbar.jsx";
 
@@ -45,14 +46,14 @@ function App() {
                     {paginaActual === 'menu' && <Menu />}
 
                     {paginaActual === 'sucursales' && (
-                        <div style={{padding: '20px', color: 'black'}}>
+                        <div style={{padding: '20px', color: 'white'}}>
                             <h1>Nuestras Sucursales</h1>
                             <p>Sucursales y Google Maps API</p>
                         </div>
                     )}
 
                     {paginaActual === 'acerca' && (
-                        <div style={{padding: '20px', color: 'black'}}>
+                        <div style={{padding: '20px', color: 'white'}}>
                             <h1>Acerca de Nosotros</h1>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                                 sed do eiusmod tempor incididunt ut labore et dolore magna
@@ -72,28 +73,39 @@ function App() {
     }
 
     return (
-        <div className="LoginContainer">
-            <h2>Iniciar Sesión</h2>
-            <form onSubmit={loginManager}>
-                <div>
-                    <label>Usuario: </label>
-                    <input
-                        type="text"
-                        value={user}
-                        onChange={(e) => setUser(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <labeL>Contraseña: </labeL>
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                </div>
+        <div className="login-bg">
 
-                <button type="submit">Iniciar Sesión</button>
-            </form>
+            <div className="login-card">
+                <h2>Tacobar</h2>
+                <p style={{marginBottom: '20px', color: '#eee'}}>Bienvenido de nuevo</p>
+
+                <form onSubmit={loginManager}>
+                    <div className="input-group">
+                        <label>Usuario</label>
+                        <input
+                            type="text"
+                            placeholder="Introduce tu usuario"
+                            value={user}
+                            onChange={(e) => setUser(e.target.value)}
+                        />
+                    </div>
+
+                    <div className="input-group">
+                        <label>Contraseña</label>
+                        <input
+                            type="password"
+                            placeholder="Introduce tu contraseña"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                    </div>
+
+                    <button type="submit" className="btn-login">
+                        Entrar
+                    </button>
+                </form>
+            </div>
+
         </div>
     )
 }
