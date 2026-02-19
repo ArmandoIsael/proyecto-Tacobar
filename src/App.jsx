@@ -6,6 +6,8 @@ import './Menu.css'
 import './Login.css'
 import Menu from "./components/Menu.jsx"
 import Navbar from "./components/Navbar.jsx";
+import Locations from "./components/Locations.jsx";
+import Toast from "./components/Toast.jsx"
 
 function App() {
 
@@ -14,6 +16,30 @@ function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     const [paginaActual, setPaginaActual] = useState('menu');
+
+    const [notificaciones, setNotificaciones] = useState([]);
+
+    // 3. Función para añadir notificación
+    const agregarNotificacion = (nombreTaco) => {
+        const nuevaNotif = {
+            id: Date.now(), // ID único basado en el tiempo
+            texto: `¡${nombreTaco} añadido al carrito!`
+        };
+
+        setNotificaciones((prev) => {
+            const listaActualizada = [...prev, nuevaNotif];
+            // Si hay más de 5, quitamos la más vieja (la primera)
+            if (listaActualizada.length > 5) {
+                return listaActualizada.slice(1);
+            }
+            return listaActualizada;
+        });
+
+        setTimeout(() => {
+            setNotificaciones((prev) => prev.filter(n => n.id !== nuevaNotif.id));
+        }, 3000);
+    };
+
 
     const loginManager = (e) => {
         e.preventDefault();
@@ -42,15 +68,15 @@ function App() {
                     cerrarSesion={cerrarSesion}
                 />
 
-                <div className="contenido-principal">
-                    {paginaActual === 'menu' && <Menu />}
+                <Toast notifications={notificaciones} />
 
-                    {paginaActual === 'sucursales' && (
-                        <div style={{padding: '20px', color: 'white'}}>
-                            <h1>Nuestras Sucursales</h1>
-                            <p>Sucursales y Google Maps API</p>
-                        </div>
+                <div className="contenido-principal">
+                    {paginaActual === 'menu' && (
+                        <Menu agregarNotificacion={agregarNotificacion} />
                     )}
+
+                    {paginaActual === 'sucursales' && <Locations />}
+
 
                     {paginaActual === 'acerca' && (
                         <div style={{padding: '20px', color: 'white'}}>

@@ -28,27 +28,30 @@ const listaDeTacos = [
 
 ];
 
-function Menu() {
+function Menu({ agregarNotificacion }) {
 
     const manejarAgregar = (taco) => {
-        alert(`¡Agregaste ${taco.nombre} al carrito!`);
-        // Es un carrito falso, despues cambiar por el real
+        agregarNotificacion(taco.nombre);
     };
 
     return (
         <div className="menu-container">
-            <h2>TESTTTTTTTTTTTT</h2>
+            <h2 className="seccion-titulo">TESTTTTTT</h2>
+
             <div className="menu-grid">
                 {listaDeTacos.map((taco) => (
                     <TacoCard
                         key={taco.id}
                         taco={taco}
                         agregarAlCarrito={manejarAgregar}
+                        //Carrito falso, cambiar despues por el real
                     />
                 ))}
             </div>
         </div>
     );
 }
+
+
 
 export default Menu;

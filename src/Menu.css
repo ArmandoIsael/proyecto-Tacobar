@@ -127,3 +127,101 @@
     border-radius: 5px;
     cursor: pointer;
 }
+
+
+.sucursales-container {
+    padding: 40px 20px;
+    background-color: #f9f9f9;
+    min-height: 100vh;
+}
+
+.seccion-titulo {
+    text-align: center;
+    color: #333;
+    margin-bottom: 40px;
+    font-size: 2.5rem;
+}
+
+.sucursales-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.sucursal-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+    border: 1px solid #eee;
+}
+
+.sucursal-card:hover {
+    transform: translateY(-10px);
+}
+
+.sucursal-info {
+    padding: 25px;
+}
+
+.sucursal-info h3 {
+    margin: 0 0 15px 0;
+    color: #d35400;
+    font-size: 1.5rem;
+}
+
+.sucursal-info p {
+    margin: 8px 0;
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+.sucursal-map {
+    line-height: 0;
+}
+
+.sucursal-map iframe {
+    filter: grayscale(0.2);
+    transition: filter 0.3s;
+}
+
+.sucursal-map iframe:hover {
+    filter: grayscale(0);
+}
+
+
+.toast-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 9999;
+}
+
+.toast-message {
+    background-color: #333;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 8px;
+    border-left: 5px solid #d35400;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    font-weight: bold;
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
