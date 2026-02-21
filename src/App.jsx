@@ -6,6 +6,8 @@ import Navbar from "./components/Navbar.jsx";
 import Locations from "./components/Locations.jsx";
 import Toast from "./components/Toast.jsx";
 import CheckoutModal from "./components/CheckoutModal.jsx";
+import LogoutModal from "./components/LogoutModal.jsx";
+import About from "./components/About.jsx";
 
 function App() {
     const [user, setUser] = useState('');
@@ -16,6 +18,7 @@ function App() {
     const [rol, setRol] = useState('');
     const [carrito, setCarrito] = useState([]);
     const [mostrarCarrito, setMostrarCarrito] = useState(false);
+    const [mostrarModalSalir, setMostrarModalSalir] = useState(false);
 
     const agregarAlCarrito = (producto) => {
         setCarrito((prev) => {
@@ -67,12 +70,15 @@ function App() {
         }
     };
 
-    const cerrarSesion = () => {
+    const confirmarCerrarSesion = () => {
         setIsLoggedIn(false);
         setUser('');
         setPassword('');
         setPaginaActual('menu');
         setRol('');
+        setMostrarCarrito(false);
+        setCarrito([]);
+        setMostrarModalSalir(false);
     };
 
     if (isLoggedIn) {
@@ -80,7 +86,7 @@ function App() {
             <div className="app-container">
                 <Navbar
                     cambiarPagina={setPaginaActual}
-                    cerrarSesion={cerrarSesion}
+                    cerrarSesion={() => setMostrarModalSalir(true)}
                     rol={rol}
                     carrito={carrito}
                     setMostrarCarrito={setMostrarCarrito}
@@ -95,6 +101,12 @@ function App() {
                     setCarrito={setCarrito}
                 />
 
+                <LogoutModal
+                    isOpen={mostrarModalSalir}
+                    onClose={() => setMostrarModalSalir(false)}
+                    onConfirm={confirmarCerrarSesion}
+                />
+
                 <div className="contenido-principal">
                     {paginaActual === 'menu' && (
                         <Menu agregarAlCarrito={agregarAlCarrito} />
@@ -103,17 +115,7 @@ function App() {
                     {paginaActual === 'sucursales' && <Locations />}
 
                     {paginaActual === 'acerca' && (
-                        <div style={{ padding: '20px', color: 'white' }}>
-                            <h1>Acerca de Nosotros</h1>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                sed do eiusmod tempor incididunt ut labore et dolore magna
-                                aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                                ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                Duis aute irure dolor in reprehenderit in voluptate velit
-                                esse cillum dolore eu fugiat nulla pariatur. Excepteur
-                                sint occaecat cupidatat non proident, sunt in culpa qui
-                                officia deserunt mollit anim id est laborum.</p>
-                        </div>
+                        <About />
                     )}
                 </div>
             </div>

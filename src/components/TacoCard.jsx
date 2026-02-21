@@ -12,7 +12,7 @@ function TacoCard({ taco, onAdd }) {
                 <div className="card-footer">
                     <span className="precio">${taco.precio}</span>
                     <button className="btn-add" onClick={() => onAdd(taco)}>
-                        Agregar +
+                        Agregar
                     </button>
                 </div>
             </div>
