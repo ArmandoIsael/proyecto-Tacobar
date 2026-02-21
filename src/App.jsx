@@ -1,36 +1,47 @@
-import { useState } from 'react'
-//import reactLogo from './assets/react.svg'
-//import viteLogo from '/vite.svg'
-//import './App.css'
-import './Menu.css'
-import './Login.css'
-import Menu from "./components/Menu.jsx"
+import { useState } from 'react';
+import './Menu.css';
+import './Login.css';
+import Menu from "./components/Menu.jsx";
 import Navbar from "./components/Navbar.jsx";
 import Locations from "./components/Locations.jsx";
-import Toast from "./components/Toast.jsx"
+import Toast from "./components/Toast.jsx";
+import CheckoutModal from "./components/CheckoutModal.jsx";
 
 function App() {
-
     const [user, setUser] = useState('');
     const [password, setPassword] = useState('');
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-
     const [paginaActual, setPaginaActual] = useState('menu');
-
     const [notificaciones, setNotificaciones] = useState([]);
-
     const [rol, setRol] = useState('');
+    const [carrito, setCarrito] = useState([]);
+    const [mostrarCarrito, setMostrarCarrito] = useState(false);
 
-    // 3. Función para añadir notificación
+    const agregarAlCarrito = (producto) => {
+        setCarrito((prev) => {
+            const existe = prev.find(item => item.id === producto.id);
+
+            if (existe) {
+                return prev.map(item =>
+                    item.id === producto.id
+                        ? { ...item, cantidad: item.cantidad + 1 }
+                        : item
+                );
+            }
+            return [...prev, { ...producto, cantidad: 1 }];
+        });
+
+        agregarNotificacion(producto.nombre);
+    };
+
     const agregarNotificacion = (nombreTaco) => {
         const nuevaNotif = {
-            id: Date.now(), // ID único basado en el tiempo
+            id: Date.now(),
             texto: `¡${nombreTaco} añadido al carrito!`
         };
 
         setNotificaciones((prev) => {
             const listaActualizada = [...prev, nuevaNotif];
-            // Si hay más de 5, quitamos la más vieja (la primera)
             if (listaActualizada.length > 5) {
                 return listaActualizada.slice(1);
             }
@@ -41,7 +52,6 @@ function App() {
             setNotificaciones((prev) => prev.filter(n => n.id !== nuevaNotif.id));
         }, 3000);
     };
-
 
     const loginManager = (e) => {
         e.preventDefault();
@@ -55,8 +65,7 @@ function App() {
         } else {
             alert('¡Usuario o contraseña incorrectos!');
         }
-
-    }
+    };
 
     const cerrarSesion = () => {
         setIsLoggedIn(false);
@@ -64,30 +73,37 @@ function App() {
         setPassword('');
         setPaginaActual('menu');
         setRol('');
-    }
+    };
 
     if (isLoggedIn) {
         return (
-
             <div className="app-container">
                 <Navbar
                     cambiarPagina={setPaginaActual}
                     cerrarSesion={cerrarSesion}
                     rol={rol}
+                    carrito={carrito}
+                    setMostrarCarrito={setMostrarCarrito}
                 />
 
                 <Toast notifications={notificaciones} />
 
+                <CheckoutModal
+                    carrito={carrito}
+                    setMostrarCarrito={setMostrarCarrito}
+                    mostrarCarrito={mostrarCarrito}
+                    setCarrito={setCarrito}
+                />
+
                 <div className="contenido-principal">
                     {paginaActual === 'menu' && (
-                        <Menu agregarNotificacion={agregarNotificacion} />
+                        <Menu agregarAlCarrito={agregarAlCarrito} />
                     )}
 
                     {paginaActual === 'sucursales' && <Locations />}
 
-
                     {paginaActual === 'acerca' && (
-                        <div style={{padding: '20px', color: 'white'}}>
+                        <div style={{ padding: '20px', color: 'white' }}>
                             <h1>Acerca de Nosotros</h1>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                                 sed do eiusmod tempor incididunt ut labore et dolore magna
@@ -101,17 +117,14 @@ function App() {
                     )}
                 </div>
             </div>
-
-
-        )
+        );
     }
 
     return (
         <div className="login-bg">
-
             <div className="login-card">
                 <h2>Tacobar</h2>
-                <p style={{marginBottom: '20px', color: '#eee'}}>Bienvenido de nuevo</p>
+                <p style={{ marginBottom: '20px', color: '#eee' }}>Bienvenido de nuevo</p>
 
                 <form onSubmit={loginManager}>
                     <div className="input-group">
@@ -139,9 +152,8 @@ function App() {
                     </button>
                 </form>
             </div>
-
         </div>
-    )
+    );
 }
 
-export default App
+export default App;

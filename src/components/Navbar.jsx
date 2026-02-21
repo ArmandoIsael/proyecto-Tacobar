@@ -1,7 +1,7 @@
 import React from 'react';
-import '../Menu.css'; //
+import '../Menu.css';
 
-function Navbar({ cambiarPagina, cerrarSesion, rol }) {
+function Navbar({ cambiarPagina, cerrarSesion, rol, carrito, setMostrarCarrito }) {
     return (
         <nav className="navbar">
             <div className="navbar-logo">Tacobar</div>
@@ -21,6 +21,10 @@ function Navbar({ cambiarPagina, cerrarSesion, rol }) {
                     )}
                     <button className="btn-logout" onClick={cerrarSesion}>
                         Salir
+                    </button>
+
+                    <button className="btn-cart" onClick={() => setMostrarCarrito(true)}>
+                        🛒 <span className="cart-badge">{carrito.reduce((acc, item) => acc + item.cantidad, 0)}</span>
                     </button>
                 </div>
             </div>

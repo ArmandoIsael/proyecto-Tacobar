@@ -1,4 +1,3 @@
-// src/components/Sucursales.jsx
 import React from 'react';
 
 const listaSucursales = [

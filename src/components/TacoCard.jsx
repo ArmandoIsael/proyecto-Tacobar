@@ -1,20 +1,17 @@
-// src/components/TacoCard.jsx
 import React from 'react';
 
-function TacoCard({ taco, agregarAlCarrito }) {
+function TacoCard({ taco, onAdd }) {
     return (
         <div className="card">
-            <img src={taco.imagen} alt={taco.nombre} className="card-image" />
+            <img src={taco.imagen} alt={taco.nombre} />
 
-            <div className="card-body">
+            <div className="card-content">
                 <h3>{taco.nombre}</h3>
-                <p className="description">{taco.descripcion}</p>
+                <p>{taco.descripcion}</p>
+
                 <div className="card-footer">
-                    <span className="price">${taco.precio}</span>
-                    <button
-                        className="btn-add"
-                        onClick={() => agregarAlCarrito(taco)}
-                    >
+                    <span className="precio">${taco.precio}</span>
+                    <button className="btn-add" onClick={() => onAdd(taco)}>
                         Agregar +
                     </button>
                 </div>
