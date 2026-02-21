@@ -85,13 +85,25 @@
     justify-content: space-between;
     align-items: center;
     background-color: #333;
-    padding: 1rem 2rem;
+    padding: 0.5rem 2rem;
     color: white;
     position: sticky;
     top: 0;
     z-index: 1000;
     width: 100%;
     box-sizing: border-box;
+}
+
+.navbar-right-side {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.navbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
 .navbar-logo {
@@ -117,6 +129,29 @@
 .navbar-links button:hover {
     color: #ffa500;
     border-bottom: 2px solid #ffa500;
+}
+
+.navbar-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.btn-admin-panel {
+    background-color: #5cace2 !important;
+    color: white;
+    border: none;
+    padding: 5px 12px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+    white-space: nowrap;
+}
+
+.btn-admin-panel:hover {
+    background-color: #3498db !important;
 }
 
 .btn-logout {

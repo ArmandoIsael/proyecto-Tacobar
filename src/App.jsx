@@ -19,6 +19,8 @@ function App() {
 
     const [notificaciones, setNotificaciones] = useState([]);
 
+    const [rol, setRol] = useState('');
+
     // 3. Función para añadir notificación
     const agregarNotificacion = (nombreTaco) => {
         const nuevaNotif = {
@@ -46,8 +48,12 @@ function App() {
 
         if (user === 'admin' && password === 'admin') {
             setIsLoggedIn(true);
+            setRol('admin');
+        } else if (user === 'usuario' && password === 'usuario') {
+            setIsLoggedIn(true);
+            setRol('usuario');
         } else {
-            alert('¡Usuario o contraseña incorrectos!')
+            alert('¡Usuario o contraseña incorrectos!');
         }
 
     }
@@ -57,6 +63,7 @@ function App() {
         setUser('');
         setPassword('');
         setPaginaActual('menu');
+        setRol('');
     }
 
     if (isLoggedIn) {
@@ -66,6 +73,7 @@ function App() {
                 <Navbar
                     cambiarPagina={setPaginaActual}
                     cerrarSesion={cerrarSesion}
+                    rol={rol}
                 />
 
                 <Toast notifications={notificaciones} />
